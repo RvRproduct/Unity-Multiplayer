@@ -1,18 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 
-public class StartupSceneLoader : MonoBehaviour
+[InitializeOnLoad]
+public static class StartupSceneLoader
 {
-    // Start is called before the first frame update
-    void Start()
+    static StartupSceneLoader()
     {
-        
+        EditorApplication.playModeStateChanged += LoadStartupScene;
     }
 
-    // Update is called once per frame
-    void Update()
+    private static void LoadStartupScene(PlayModeStateChange state)
     {
-        
+        if (state == PlayModeStateChange.ExitingEditMode)
+        {
+            EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+        }
+
+        if (state == PlayModeStateChange.EnteredPlayMode)
+        {
+            if (EditorSceneManager.GetActiveScene().buildIndex != 0)
+            {
+                EditorSceneManager.LoadScene(0);
+            }
+        }
     }
 }

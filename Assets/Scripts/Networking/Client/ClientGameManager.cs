@@ -13,7 +13,7 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ClientGameManager
+public class ClientGameManager : IDisposable
 {
 
     private JoinAllocation allocation;
@@ -73,5 +73,10 @@ public class ClientGameManager
         NetworkManager.Singleton.StartClient();
 
 
+    }
+
+    public void Dispose()
+    {
+        networkClient?.Dispose();
     }
 }
