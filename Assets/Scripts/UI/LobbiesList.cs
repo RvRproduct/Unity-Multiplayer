@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using Steamworks;
 
 public class LobbiesList : MonoBehaviour
 {
